@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaRegStar } from "react-icons/fa6";
 import { IoIosStar } from "react-icons/io";
 

@@ -4,8 +4,6 @@ import { FaStar } from "react-icons/fa6";
 import { GiStarFormation } from "react-icons/gi";
 import { TiMinus } from "react-icons/ti";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
-import { FaRegStar } from "react-icons/fa";
-import Inception from "../assets/inception.jpeg";
 import { IoIosStar } from "react-icons/io";
 import { BiSolidHourglass } from "react-icons/bi";
 import StarRating from "./StarRating";
@@ -24,9 +22,7 @@ const Details = ({ selectedMovieId, setSelectedMovieId }) => {
   const isWatched = watchedMovies
     .map((item) => item.imdbId)
     .includes(selectedMovieId);
-  const watchedMovieRating = watchedMovies.find(
-    (item) => item.imdbId === selectedMovieId?.starRating
-  );
+
   const {
     Title: title,
     Poster: poster,

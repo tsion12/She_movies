@@ -10,7 +10,6 @@ const SearchResult = ({
   selectedMovieId,
   setSelectedMovieId,
 }) => {
-  const [details, setDetails] = useState(false);
   const [collapse, setCollapse] = useState(true);
 
   return (
