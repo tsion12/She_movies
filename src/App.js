@@ -1,23 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import NavBar from "./components/NavBar";
+import SearchResult from "./components/SearchResult";
+import { useEffect, useState } from "react";
 
+const API_KEY = "67f36c12";
 function App() {
+  const [queries, setQueries] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [selectedMovieId, setSelectedMovieId] = useState("");
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        setError(false);
+        const res = await fetch(
+          ` http://www.omdbapi.com/?apikey=${API_KEY}&s=${queries}`
+        );
+
+        if (!res.ok)
+          throw new Error("Something went wrong while fetching data");
+        const data = await res.json();
+        console.log("initial data", data);
+        if (data.Response === "False") throw new Error("Movie not found");
+
+        if (data.Error) throw new Error(data.Error);
+        setMovies(data.Search);
+        console.log(data.Search);
+      } catch (error) {
+        console.log(error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (!queries.length) {
+      setMovies([]);
+      setError("Search for a movie");
+      setSelectedMovieId(null);
+      return;
+    }
+    fetchData();
+    // fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${API_KEY}&s=inception`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     setMovies(data.Search);
+    //   });
+  }, [queries]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col space-y-6 h-screen w-full bg-slate-900">
+      <NavBar movies={movies} queries={queries} setQueries={setQueries} />
+      <div className="flex space-x-4 w-full items-center justify-center h-full">
+        <SearchResult
+          error={error}
+          loading={loading}
+          movies={movies}
+          selectedMovieId={selectedMovieId}
+          setSelectedMovieId={setSelectedMovieId}
+        />
+        {/* <Details /> */}
+      </div>
     </div>
   );
 }
