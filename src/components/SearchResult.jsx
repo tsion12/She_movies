@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SlCalender } from "react-icons/sl";
 
 import Details from "./Details";
@@ -11,6 +11,18 @@ const SearchResult = ({
   setSelectedMovieId,
 }) => {
   const [collapse, setCollapse] = useState(true);
+
+  useEffect(() => {
+    function callBack(e) {
+      if (e.key === "Escape") {
+        setSelectedMovieId(null);
+        console.log("esc key pressed");
+      }
+    }
+
+    document.addEventListener("keydown", callBack);
+    document.removeEventListener("keydown", callBack);
+  }, []);
 
   return (
     <>
@@ -33,10 +45,6 @@ const SearchResult = ({
               <div
                 key={movie.imdbID}
                 onClick={() => {
-                  // console.log(movies.length);
-                  // setSelectedMovieId("tt0372784");
-                  // setDetails(true);
-
                   setSelectedMovieId(movie.imdbID);
                   console.log(movie.imdbID);
                 }}

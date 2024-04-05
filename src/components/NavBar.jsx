@@ -8,7 +8,7 @@ const NavBar = ({ movies, queries, setQueries }) => {
         type="search"
         name=""
         id=""
-        className="w-1/4  text-sm text-gray-900 bg-transparent  rounded-lg  py-2 px-2
+        className="w-1/4  text-sm text-white bg-transparent  rounded-lg  py-2 px-2
          border border-gray-300 placeholder:text-xs placeholder:px-2 outline-none "
         placeholder="Search for movies"
         value={queries}

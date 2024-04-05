@@ -37,6 +37,11 @@ const Details = ({ selectedMovieId, setSelectedMovieId }) => {
   } = movie;
 
   useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+  }, [title]);
+
+  useEffect(() => {
     async function getMoviesData() {
       setLoading(true);
       const res = await fetch(
