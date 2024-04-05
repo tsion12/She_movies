@@ -22,7 +22,7 @@ const SearchResult = ({
 
     document.addEventListener("keydown", callBack);
     document.removeEventListener("keydown", callBack);
-  }, []);
+  }, [setSelectedMovieId]);
 
   return (
     <>
